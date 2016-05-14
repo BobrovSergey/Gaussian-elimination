@@ -21,7 +21,6 @@ buttonFormEl.onclick = function(e){
 			div.appendChild(input);
 			div.appendChild(label);
 
-
 			// insert last b input	
 			if(j == systemDimensionEl.value) {
 				var input = document.createElement("input");
