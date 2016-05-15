@@ -1,8 +1,14 @@
-var form = document.forms.system;
+"use strict";
+
+var form = document.forms.system,
 	formEquation = document.forms.equation,
 	systemDimensionEl = form.systemDimension,
-	buttonFormEl = form.enterSystemDimension;
+	buttonFormEl = form.enterSystemDimension,
+	buttonProcess = document.createElement("button");
 
+/*
+* Render inputs
+*/
 buttonFormEl.onclick = function(e){
 	e.preventDefault();
 	formEquation.innerHTML = '';
@@ -12,35 +18,60 @@ buttonFormEl.onclick = function(e){
 		div.className += "equation-div";
 
 		for (var j = 1; j <= systemDimensionEl.value; j++) {
-			var input = document.createElement("input");
-			var label = document.createElement("label");
-			label.innerHTML = "x" + i + j;
-			input.type = "number";
-			label.for = input.name = input.id = "a[" + i + "][" + j + "]"; 
 			
-			div.appendChild(input);
-			div.appendChild(label);
+			insertInput(div, "x" + i + j, "a[" + i + "][" + j + "]", i);
 
 			// insert last b input	
 			if(j == systemDimensionEl.value) {
-				var input = document.createElement("input");
-				var label = document.createElement("label");
-				label.innerHTML = "b" + i;
-				input.type = "number";
-				label.for = input.name = input.id = "b[" + i + "]"; 
-				div.appendChild(input);
-				div.appendChild(label);
+				insertInput(div, "b" + i, "b[" + i + "]", i);
 			}
-
 		}
 
 		formEquation.appendChild(div);
 	}
 
-	//insert process
-	var buttonProcess = document.createElement("button");
+	//append process button 
+	
 	buttonProcess.innerHTML = "Process!";
 	buttonProcess.id = "process";
 	formEquation.appendChild(buttonProcess);
 
+}
+buttonProcess.onclick = function(e) {
+	e.preventDefault();
+	var matrix = getMatrix();
+}
+
+/*
+* Append inputs
+*/
+function insertInput(div, labelHTML, inputName, level) {
+	var input = document.createElement("input");
+	var label = document.createElement("label");
+	var levelAttr = document.createAttribute("level");
+
+	label.innerHTML = labelHTML;
+	input.type = "number";
+	label.for = input.name = input.id = inputName; 
+	levelAttr.value = level;  
+	input.setAttributeNode(levelAttr);
+
+	div.appendChild(input);
+	div.appendChild(label);
+}
+
+/* 
+* Gets inserted values and returns array
+*/
+function getMatrix() {
+	var inputs = formEquation.getElementsByTagName("input");
+	var resultArray = [];
+	for (var i = 0; i < inputs.length; i++) {		
+		resultArray[inputs[i].getAttribute('level')] = [];
+	}
+	for (var i = 0; i < inputs.length; i++) {
+		resultArray[inputs[i].getAttribute('level')].push(inputs[i].value);
+	}
+	
+	return resultArray;
 }
