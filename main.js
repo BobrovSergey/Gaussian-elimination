@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-var form = document.forms.system;
-	formEquation = document.forms.equation,
-	systemDimensionEl = form.systemDimension,
-	buttonFormEl = form.enterSystemDimension;
-
-=======
 "use strict";
 
 var form = document.forms.system,
@@ -16,7 +9,6 @@ var form = document.forms.system,
 /*
 * Render inputs
 */
->>>>>>> gh-pages
 buttonFormEl.onclick = function(e){
 	e.preventDefault();
 	formEquation.innerHTML = '';
@@ -26,29 +18,6 @@ buttonFormEl.onclick = function(e){
 		div.className += "equation-div";
 
 		for (var j = 1; j <= systemDimensionEl.value; j++) {
-<<<<<<< HEAD
-			var input = document.createElement("input");
-			var label = document.createElement("label");
-			label.innerHTML = "x" + i + j;
-			input.type = "number";
-			label.for = input.name = input.id = "a[" + i + "][" + j + "]"; 
-			
-			div.appendChild(input);
-			div.appendChild(label);
-
-
-			// insert last b input	
-			if(j == systemDimensionEl.value) {
-				var input = document.createElement("input");
-				var label = document.createElement("label");
-				label.innerHTML = "b" + i;
-				input.type = "number";
-				label.for = input.name = input.id = "b[" + i + "]"; 
-				div.appendChild(input);
-				div.appendChild(label);
-			}
-
-=======
 			
 			insertInput(div, "x" + i + j, "a[" + i + "][" + j + "]", i);
 
@@ -56,25 +25,17 @@ buttonFormEl.onclick = function(e){
 			if(j == systemDimensionEl.value) {
 				insertInput(div, "b" + i, "b[" + i + "]", i);
 			}
->>>>>>> gh-pages
 		}
 
 		formEquation.appendChild(div);
 	}
 
-<<<<<<< HEAD
-	//insert process
-	var buttonProcess = document.createElement("button");
-=======
 	//append process button 
 	
->>>>>>> gh-pages
 	buttonProcess.innerHTML = "Process!";
 	buttonProcess.id = "process";
 	formEquation.appendChild(buttonProcess);
 
-<<<<<<< HEAD
-=======
 }
 buttonProcess.onclick = function(e) {
 	e.preventDefault();
@@ -113,5 +74,4 @@ function getMatrix() {
 	}
 	
 	return resultArray;
->>>>>>> gh-pages
 }
